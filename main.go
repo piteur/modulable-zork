@@ -1,7 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"github.com/piteur/modulable-zork/src/story"
+	"fmt"
+)
 
 func main() {
-	fmt.Println("This is the firts line ever `modulable zork` soft :)")
+	fmt.Println("Welcome to 'modulable Zork'")
+
+	story.LoadStories()
+	choice := story.ChooseHistory()
+
+	fmt.Println(choice)
 }
+

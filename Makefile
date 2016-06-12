@@ -7,7 +7,8 @@ help: ## Display usage
 
 build: ## Compile Go binary for the current OS
 	@echo "Compiling... " && GOGC=off go build -o "$(PWD)/bin/modulable-zork" main.go
-	@echo "Executing bin:"
+	@echo "Executing..."
+	@echo "-------------"
 	@echo
 	@$(PWD)/bin/modulable-zork
 
