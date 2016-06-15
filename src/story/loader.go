@@ -4,62 +4,51 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"encoding/json"
 )
-
-type story struct {
-	Name  string
-	Index int
-}
-
-type storyAction struct {
-	Text string
-	moveTo int
-}
-
-type loadedStory struct {
-	InternalName string
-	InternalCode int
-	Name         string
-	Description	string
-	Actions map[string]storyAction
-}
 
 var storyMap = map[int]story{}
 
-/*
-	Scan the 'stories' folder and load stories name & index to story.storyMap
-*/
+// Scan the 'stories' folder and load stories name & index to story.storyMap
 func LoadStories() {
-	dirs, err := ioutil.ReadDir("./stories")
+	files, err := ioutil.ReadDir("./stories")
 
 	if err != nil {
 		fmt.Println("No 'stories' folder found. Aborting")
 		return
 	}
 
-	for index, dir := range dirs {
-		if dir.IsDir() {
-			storyMap[index] = story{
-				Index: index,
-				Name:  dir.Name(),
+	var fileContent []byte
+
+	for index, file := range files {
+		if !file.IsDir() {
+			fileContent, err = ioutil.ReadFile("./stories/" + file.Name())
+
+			if err != nil {
+				fmt.Println("Unable to load file content")
+				os.Exit(2)
 			}
+
+			story := basicStoryLoading(fileContent)
+			story.StoryId = index
+
+			storyMap[index] = story
 		}
 	}
 
 	return
 }
 
-/*
-	Prompt user to choose an history
-	Will prompt until a valid int has been typed. Exit on invalid type.
-*/
+// Prompt user to choose an history
+// Will prompt until a valid int has been typed. Exit on invalid type.
 func ChooseHistory() story {
 	var choice int
 
-	fmt.Println("Choose the story to load:")
+	fmt.Println("Choose the story to load:\n")
 
 	for _, story := range storyMap {
-		fmt.Printf("\t%v - %s", story.Index, story.Name)
+		fmt.Printf("%v - %s\n", story.StoryId, story.Name)
+		fmt.Printf("\tDescription:\n\t%s\n", story.Description)
 		fmt.Println("")
 	}
 
@@ -70,8 +59,8 @@ func ChooseHistory() story {
 		_, err := fmt.Scanf("%v", &choice)
 
 		if err != nil {
-			fmt.Println("invalid input ! Please enter a number")
-			os.Exit(0)
+			fmt.Println("invalid input ! Please enter a valid number")
+			continue
 		}
 
 		if _, exist := storyMap[choice]; exist {
@@ -82,6 +71,14 @@ func ChooseHistory() story {
 	return storyMap[choice]
 }
 
+func basicStoryLoading(storyToLoad []byte) (story story) {
+	json.Unmarshal(storyToLoad, &story)
+
+	return
+}
+
+/*
 func LoadStory(story) (loadedStory loadedStory) {
 
 }
+*/

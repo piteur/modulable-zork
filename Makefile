@@ -10,7 +10,7 @@ build: ## Compile Go binary for the current OS
 	@echo "Executing..."
 	@echo "-------------"
 	@echo
-	@$(PWD)/bin/modulable-zork
+	@"$(PWD)/bin/modulable-zork"
 
 build-linux: ## Compile Go binary for Linux
 	@echo "Compiling for Unix... " && GOGC=off GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o "$(PWD)/bin/modulable-zork" main.go
