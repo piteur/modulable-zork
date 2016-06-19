@@ -1,13 +1,14 @@
-package story
+package loader
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"os"
-	"encoding/json"
+	"github.com/piteur/modulable-zork/src/story"
 )
 
-var storyMap = map[int]story{}
+var storyMap = map[int]story.Story{}
 
 // Scan the 'stories' folder and load stories name & index to story.storyMap
 func LoadStories() {
@@ -29,7 +30,7 @@ func LoadStories() {
 				os.Exit(2)
 			}
 
-			story := basicStoryLoading(fileContent)
+			story := load(fileContent)
 			story.StoryId = index
 
 			storyMap[index] = story
@@ -41,7 +42,7 @@ func LoadStories() {
 
 // Prompt user to choose an history
 // Will prompt until a valid int has been typed. Exit on invalid type.
-func ChooseHistory() story {
+func ChooseHistory() story.Story {
 	var choice int
 
 	fmt.Println("Choose the story to load:\n")
@@ -71,14 +72,9 @@ func ChooseHistory() story {
 	return storyMap[choice]
 }
 
-func basicStoryLoading(storyToLoad []byte) (story story) {
+// load a story from a json string
+func load(storyToLoad []byte) (story story.Story) {
 	json.Unmarshal(storyToLoad, &story)
 
 	return
 }
-
-/*
-func LoadStory(story) (loadedStory loadedStory) {
-
-}
-*/

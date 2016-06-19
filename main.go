@@ -1,15 +1,17 @@
 package main
 
 import (
-	"github.com/piteur/modulable-zork/src/story"
 	"fmt"
+	"github.com/piteur/modulable-zork/src/loader"
+	"github.com/piteur/modulable-zork/src/game"
 )
 
 func main() {
 	fmt.Println("Welcome to 'modulable Zork'")
 
-	story.LoadStories()
-	choice := story.ChooseHistory()
+	loader.LoadStories()
+	choice := loader.ChooseHistory()
 
-	fmt.Println(choice)
+	// launching the loaded story
+	game.Play(choice)
 }

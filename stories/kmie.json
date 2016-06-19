@@ -13,19 +13,24 @@
                 },
                 "Go north": {
                     "text": "You approach the sea.",
-                    "moveTo": 1
+                    "moveToPosition": 1
                 },
                 "test": {
                     "text": "shoes on your feets",
-                    "setGlobalCondition": "test=1",
-                    "setCondition": "shoes=1"
+                    "condition": {
+                        "key": "shoes",
+                        "value": "1"
+                    }
                 },
                 "test2": {
-                    "testGlobalCondition": "test == 1",
-                    "testCondition": "shoes == 1",
+                    "condition": {
+                        "key": "shoes",
+                        "value": "1",
+                        "test": "="
+                    },
                     "valid": {
                         "text": "You're going to X",
-                        "moveTo": 42
+                        "moveToPosition": 42
                     },
                     "invalid": {
                         "text": "You can't, you need your shoes"

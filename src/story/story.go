@@ -1,34 +1,36 @@
 package story
 
 // general story content
-type story struct {
+type Story struct {
 	StoryId         int
 	Name            string
 	Description     string
-	StoryPositions  map[int]storyPosition
+	StoryPositions  map[int]StoryPosition
 	DefaultPosition int
 }
 
 // each story position
-type storyPosition struct {
+type StoryPosition struct {
 	InternalName string
 	InternalCode int
 	Name         string
-	Description  []byte
-	Actions      map[string]storyAction
+	Description  string
+	Actions      map[string]StoryAction
 }
 
 // each action detail
-type storyAction struct {
-	Text   string
-	MoveTo int
+type StoryAction struct {
+	Text           string
+	MoveToPosition int
+	Condition      StoryCondition
 
-	SetGlobalCondition string
-	SetCondition       string
+	Valid          *StoryAction
+	Invalid        *StoryAction
+}
 
-	TestGlobalCondition string
-	TestCondition       string
-
-	valid   *storyAction
-	invalid *storyAction
+// condition (set or test) used on a story action
+type StoryCondition struct {
+	Key   string
+	Value string
+	Test  string
 }
