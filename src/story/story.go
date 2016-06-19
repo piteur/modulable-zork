@@ -5,14 +5,12 @@ type Story struct {
 	StoryId         int
 	Name            string
 	Description     string
-	StoryPositions  map[int]StoryPosition
-	DefaultPosition int
+	Positions       map[string]StoryPosition
+	DefaultPosition string
 }
 
 // each story position
 type StoryPosition struct {
-	InternalName string
-	InternalCode int
 	Name         string
 	Description  string
 	Actions      map[string]StoryAction

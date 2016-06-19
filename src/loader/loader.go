@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"os"
 	"github.com/piteur/modulable-zork/src/story"
+	"github.com/piteur/modulable-zork/src/util"
 )
 
 var storyMap = map[int]story.Story{}
@@ -57,7 +58,7 @@ func ChooseHistory() story.Story {
 		fmt.Println("")
 		fmt.Println("What story do you want to play ? (enter valid number)")
 
-		_, err := fmt.Scanf("%v", &choice)
+		choice, err := util.ReadInt()
 
 		if err != nil {
 			fmt.Println("invalid input ! Please enter a valid number")

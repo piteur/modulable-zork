@@ -1,10 +1,9 @@
 {
-    "Name": "Kmie",
-    "Description": "story created by Kmie",
-    "defaultPosition": 0,
+    "Name": "The absence",
+    "Description": "This story was created by Camille, wish you a happy party",
+    "defaultPosition": "0",
     "positions": {
         "0": {
-            "internalCode": 0,
             "name": "Beach",
             "description": "You open your eyes, the sun blinds you.\nYou touch around you, looking for something familiar, but you only find sand.\nYou stand back up, you see that you are on a beach.",
             "actions": {
@@ -13,7 +12,7 @@
                 },
                 "Go north": {
                     "text": "You approach the sea.",
-                    "moveToPosition": 1
+                    "moveToPosition": "1"
                 },
                 "test": {
                     "text": "shoes on your feets",
@@ -23,6 +22,7 @@
                     }
                 },
                 "test2": {
+                    "text": "something",
                     "condition": {
                         "key": "shoes",
                         "value": "1",
@@ -30,7 +30,7 @@
                     },
                     "valid": {
                         "text": "You're going to X",
-                        "moveToPosition": 42
+                        "moveToPosition": "42"
                     },
                     "invalid": {
                         "text": "You can't, you need your shoes"
