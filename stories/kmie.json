@@ -30,11 +30,20 @@
                     },
                     "valid": {
                         "text": "You're going to X",
-                        "moveToPosition": "42"
+                        "moveToPosition": "1"
                     },
                     "invalid": {
                         "text": "You can't, you need your shoes"
                     }
+                }
+            }
+        },
+        "1": {
+            "name": "Piteur test",
+            "description": "Who care ? :D",
+            "actions": {
+                "test": {
+                    "text": "Test feedback, dumb guy"
                 }
             }
         }

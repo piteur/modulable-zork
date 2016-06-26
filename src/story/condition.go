@@ -58,7 +58,6 @@ func (storyCondition StoryCondition) IsTestable() bool {
 	return true
 }
 
-
 // is the condition has been initialized ?
 func (storyCondition StoryCondition) isInitialized() bool {
 	if _, exist := staticConditions[storyCondition.Key]; !exist {

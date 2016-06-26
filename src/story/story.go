@@ -8,10 +8,3 @@ type Story struct {
 	Positions       map[string]StoryPosition
 	DefaultPosition string
 }
-
-// each story position
-type StoryPosition struct {
-	Name         string
-	Description  string
-	Actions      map[string]StoryAction
-}
