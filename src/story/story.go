@@ -15,20 +15,3 @@ type StoryPosition struct {
 	Description  string
 	Actions      map[string]StoryAction
 }
-
-// each action detail
-type StoryAction struct {
-	Text           string
-	MoveToPosition int
-	Condition      StoryCondition
-
-	Valid          *StoryAction
-	Invalid        *StoryAction
-}
-
-// condition (set or test) used on a story action
-type StoryCondition struct {
-	Key   string
-	Value string
-	Test  string
-}

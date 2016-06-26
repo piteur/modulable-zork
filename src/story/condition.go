@@ -1,32 +1,69 @@
 package story
 
+// condition used on a story action
+type StoryCondition struct {
+	Key   string
+	Value string
+	Test  string
+}
+
+// static storage of all the conditions
 var staticConditions map[string]StoryCondition
-/*
-func (storyCondition storyCondition) read() {
-	if storyCondition.Test == "" {
+var staticInit bool
+
+// read & store if necessary a condition
+func (storyCondition StoryCondition) Init() {
+	if !staticInit {
+		staticConditions = make(map[string]StoryCondition)
+		staticInit = true
+	}
+
+	if !storyCondition.IsTestable() {
 		staticConditions[storyCondition.Key] = storyCondition
 	}
 }
 
-func (storyCondition storyCondition) verify() bool {
-	// if no condition exists, return false
-	if _, exist := staticConditions[storyCondition.Key]; !exist {
+// test a condition
+func (storyCondition StoryCondition) Verify() bool {
+	if !storyCondition.isInitialized() {
 		return false
 	}
 
-	key := staticConditions[storyCondition.Key]
+	if !storyCondition.IsTestable() {
+		return false
+	}
+
+	storedConditionValue := staticConditions[storyCondition.Key].Value
 
 	switch storyCondition.Test {
-		case "=" && "==":
-			return key.Value == storyCondition.Value
+		case "=", "==":
+			return storedConditionValue == storyCondition.Value
 		case ">":
-			return key > storyCondition.Value
+			return storedConditionValue > storyCondition.Value
 		case "<":
-			return key < storyCondition.Value
-		case "!=" && "<>":
-			return key != storyCondition.Value
+			return storedConditionValue < storyCondition.Value
+		case "!=", "!==", "<>":
+			return storedConditionValue != storyCondition.Value
 	}
 
 	return false
 }
-*/
+
+// is the condition as test or a declaration
+func (storyCondition StoryCondition) IsTestable() bool {
+	if storyCondition.Test == "" {
+		return false
+	}
+
+	return true
+}
+
+
+// is the condition has been initialized ?
+func (storyCondition StoryCondition) isInitialized() bool {
+	if _, exist := staticConditions[storyCondition.Key]; !exist {
+		return false
+	}
+
+	return true
+}

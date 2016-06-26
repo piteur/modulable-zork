@@ -23,12 +23,27 @@ func playPosition(position story.StoryPosition) {
 	fmt.Println(position.Description)
 	fmt.Println("===========================")
 
-	action := waitForCorrectInput(position)
+	for {
+		action := waitForCorrectInput(position)
 
-	fmt.Println(action.Text)
+		fmt.Println(action.Text)
+
+		// do we have a condition ?
+		if action.HasCondition() {
+			action.Condition.Init()
+
+			if action.Condition.IsTestable() {
+				if action.Condition.Verify() {
+					fmt.Println(action.Valid.Text)
+				} else {
+					fmt.Println(action.Invalid.Text)
+				}
+			}
+		}
+	}
 }
 
-// wait for the user to input something correct
+// wait for the user to input something correct, and return the action to be played next
 func waitForCorrectInput(position story.StoryPosition) (action story.StoryAction) {
 	for {
 		var exist bool
