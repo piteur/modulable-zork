@@ -14,29 +14,25 @@ type StoryPosition struct {
 }
 
 // display & interact with a story position
-func (position StoryPosition) Play() {
+func (position StoryPosition) Run() string {
 	fmt.Println(position.Description)
 	fmt.Println("===========================")
 
 	for {
 		action := waitForCorrectInput(position)
 
-		fmt.Println(action.Text)
+		positionId := action.Run()
 
-		// do we have a condition ?
-		if action.HasCondition() {
-			action.Condition.Init()
-
-			if action.Condition.IsTestable() {
-				if action.Condition.Verify() {
-					fmt.Println(action.Valid.Text)
-				} else {
-					fmt.Println(action.Invalid.Text)
-				}
-			}
-
+		if positionId != "" {
+			return positionId
 		}
 	}
+}
+
+// is a position loaded ? Or empty
+func (position StoryPosition) IsLoaded() bool {
+	return position.Name != "" &&
+		position.Description != ""
 }
 
 // wait for the user to input something correct, and return the action to be played next
@@ -67,3 +63,4 @@ func waitForCorrectInput(position StoryPosition) (action StoryAction) {
 
 	return
 }
+

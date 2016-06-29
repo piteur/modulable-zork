@@ -22,7 +22,6 @@
                     }
                 },
                 "test2": {
-                    "text": "something",
                     "condition": {
                         "key": "shoes",
                         "value": "1",

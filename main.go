@@ -13,5 +13,5 @@ func main() {
 	choice := loader.ChooseHistory()
 
 	// launching the loaded story
-	game.Play(choice)
+	game.Run(choice)
 }

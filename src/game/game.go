@@ -7,14 +7,24 @@ import(
 )
 
 // launch a story to play it
-func Play(story story.Story) {
+func Run(loadedStory story.Story) {
 	// clear console to start on a clean screen
 	util.ClearConsole()
 
-	fmt.Println("You'll now play this story: " + story.Name)
+	fmt.Println("You'll now play this story: " + loadedStory.Name)
 	fmt.Println("\n")
 
-	position := story.Positions[story.DefaultPosition]
+	position := loadedStory.LoadDefaultPosition()
 
-	position.Play()
+	for {
+		if (!position.IsLoaded()) {
+			fmt.Println("No more position to load")
+			// no more position to load, stopping the game
+			break
+		}
+
+		positionId := position.Run()
+
+		position = loadedStory.LoadPosition(positionId)
+	}
 }
