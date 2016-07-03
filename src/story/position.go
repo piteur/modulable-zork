@@ -11,6 +11,7 @@ type StoryPosition struct {
 	Name         string
 	Description  string
 	Actions      map[string]StoryAction
+	Final        int
 }
 
 // display & interact with a story position
@@ -23,6 +24,7 @@ func (position StoryPosition) Run() string {
 
 		positionId := action.Run()
 
+		// only load a new position when the action tell us to do it
 		if positionId != "" {
 			return positionId
 		}
@@ -31,8 +33,12 @@ func (position StoryPosition) Run() string {
 
 // is a position loaded ? Or empty
 func (position StoryPosition) IsLoaded() bool {
-	return position.Name != "" &&
-		position.Description != ""
+	return position.Name != "" && position.Description != ""
+}
+
+// is a position final ? aka: last position
+func (position StoryPosition) IsFinal() bool {
+	return position.Final == 1
 }
 
 // wait for the user to input something correct, and return the action to be played next

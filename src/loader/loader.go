@@ -56,7 +56,7 @@ func ChooseHistory() story.Story {
 
 	for {
 		fmt.Println("")
-		fmt.Println("What story do you want to play ? (enter valid number)")
+		fmt.Println("What story do you want to play ?")
 
 		choice, err := util.ReadInt()
 

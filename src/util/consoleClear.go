@@ -10,6 +10,10 @@ import (
 var clearFunc map[string]func()
 
 func initMap() {
+	if len(clearFunc) != 0 {
+		return
+	}
+
 	clearFunc = make(map[string]func())
 
 	// linux
@@ -37,10 +41,10 @@ func initMap() {
 func ClearConsole() {
 	initMap()
 
-	value, exist := clearFunc[runtime.GOOS]
+	clear, exist := clearFunc[runtime.GOOS]
 
 	if exist {
-		value()
+		clear()
 	} else {
 		fmt.Println("\n\n\n\n")
 	}

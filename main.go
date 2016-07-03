@@ -10,8 +10,8 @@ func main() {
 	fmt.Println("Welcome to 'modulable Zork'")
 
 	loader.LoadStories()
-	choice := loader.ChooseHistory()
+	story := loader.ChooseHistory()
 
 	// launching the loaded story
-	game.Run(choice)
+	game.Run(story)
 }

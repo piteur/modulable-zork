@@ -29,7 +29,7 @@
                     },
                     "valid": {
                         "text": "You're going to X",
-                        "moveToPosition": "1"
+                        "moveTo": "1"
                     },
                     "invalid": {
                         "text": "You can't, you need your shoes"
@@ -39,12 +39,17 @@
         },
         "1": {
             "name": "Piteur test",
-            "description": "Who care ? :D",
+            "description": "You're on position 1, congrats",
             "actions": {
                 "test": {
-                    "text": "Test feedback, dumb guy"
+                    "moveTo": "finalPosition"
                 }
             }
+        },
+        "finalPosition": {
+            "name": "Final position",
+            "description": "The game is now over, thanks for your time playing it",
+            "final": 1
         }
     }
 }

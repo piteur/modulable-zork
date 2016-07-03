@@ -22,7 +22,7 @@
                     },
                     "valid": {
                         "text": "The condition is valid, moving to a new position",
-                        "moveToPosition": "1"
+                        "moveTo": "1"
                     },
                     "invalid": {
                         "text": "The condition isn't valid"

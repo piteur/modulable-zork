@@ -9,13 +9,12 @@ type StoryCondition struct {
 
 // static storage of all the conditions
 var staticConditions map[string]StoryCondition
-var staticInit bool
 
 // read & store if necessary a condition
 func (storyCondition StoryCondition) Init() {
-	if !staticInit {
+	// init the map if not already done
+	if len(staticConditions) == 0 {
 		staticConditions = make(map[string]StoryCondition)
-		staticInit = true
 	}
 
 	if !storyCondition.IsTestable() {

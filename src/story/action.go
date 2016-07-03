@@ -7,7 +7,7 @@ import (
 // each action detail
 type StoryAction struct {
 	Text           string
-	MoveToPosition string
+	MoveTo string
 	Condition      StoryCondition
 
 	Valid          *StoryAction
@@ -16,7 +16,9 @@ type StoryAction struct {
 
 // Run the action: set/test condition, move to another position or whatever
 func (storyAction StoryAction) Run() string {
-	fmt.Println(storyAction.Text)
+	if storyAction.Text != "" {
+		fmt.Println(storyAction.Text)
+	}
 
 	// do we have a condition ?
 	if storyAction.hasCondition() {
@@ -33,8 +35,8 @@ func (storyAction StoryAction) Run() string {
 	}
 
 	// do we need to move to another position ?
-	if storyAction.hasMoveToPosition() {
-		return storyAction.MoveToPosition
+	if storyAction.hasMoveTo() {
+		return storyAction.MoveTo
 	}
 
 	return ""
@@ -50,8 +52,8 @@ func (storyAction StoryAction) hasCondition() bool {
 }
 
 // does the action have a condition
-func (storyAction StoryAction) hasMoveToPosition() bool {
-	if (storyAction.MoveToPosition != "") {
+func (storyAction StoryAction) hasMoveTo() bool {
+	if (storyAction.MoveTo != "") {
 		return true
 	}
 
