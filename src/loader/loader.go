@@ -3,10 +3,10 @@ package loader
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"os"
 	"github.com/piteur/modulable-zork/src/story"
 	"github.com/piteur/modulable-zork/src/util"
+	"io/ioutil"
+	"os"
 )
 
 var storyMap = map[int]story.Story{}
@@ -20,9 +20,9 @@ func LoadStories() {
 		return
 	}
 
-	var fileContent []byte
-
 	for index, file := range files {
+		var fileContent []byte
+
 		if !file.IsDir() {
 			fileContent, err = ioutil.ReadFile("./stories/" + file.Name())
 

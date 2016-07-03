@@ -6,12 +6,12 @@ import (
 
 // each action detail
 type StoryAction struct {
-	Text           string
-	MoveTo string
-	Condition      StoryCondition
+	Text      string
+	MoveTo    string
+	Condition StoryCondition
 
-	Valid          *StoryAction
-	Invalid        *StoryAction
+	Valid   *StoryAction
+	Invalid *StoryAction
 }
 
 // Run the action: set/test condition, move to another position or whatever
@@ -28,9 +28,9 @@ func (storyAction StoryAction) Run() string {
 			if storyAction.Condition.Verify() {
 				fmt.Println()
 				return storyAction.Valid.Run()
-			} else {
-				return storyAction.Invalid.Run()
 			}
+
+			return storyAction.Invalid.Run()
 		}
 	}
 
@@ -44,18 +44,10 @@ func (storyAction StoryAction) Run() string {
 
 // does the action have a condition
 func (storyAction StoryAction) hasCondition() bool {
-	if (storyAction.Condition != StoryCondition{}) {
-		return true
-	}
-
-	return false
+	return storyAction.Condition != StoryCondition{}
 }
 
-// does the action have a condition
+// does the action have a moveTo value
 func (storyAction StoryAction) hasMoveTo() bool {
-	if (storyAction.MoveTo != "") {
-		return true
-	}
-
-	return false
+	return storyAction.MoveTo != ""
 }

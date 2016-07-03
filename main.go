@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/piteur/modulable-zork/src/loader"
 	"github.com/piteur/modulable-zork/src/game"
+	"github.com/piteur/modulable-zork/src/loader"
+	"os"
 )
 
 func main() {
@@ -12,6 +13,6 @@ func main() {
 	loader.LoadStories()
 	story := loader.ChooseHistory()
 
-	// launching the loaded story
-	game.Run(story)
+	// launch the loaded story & exit
+	os.Exit(game.Run(story))
 }

@@ -1,14 +1,13 @@
 package game
 
-import(
-	"github.com/piteur/modulable-zork/src/story"
+import (
 	"fmt"
+	"github.com/piteur/modulable-zork/src/story"
 	"github.com/piteur/modulable-zork/src/util"
-	"os"
 )
 
 // launch a story to play it
-func Run(loadedStory story.Story) {
+func Run(loadedStory story.Story) int {
 	// clear console to start on a clean screen
 	util.ClearConsole()
 
@@ -18,21 +17,18 @@ func Run(loadedStory story.Story) {
 	position := loadedStory.LoadDefaultPosition()
 
 	for {
-		// an error occured on the next position load, stopping
-		if (!position.IsLoaded()) {
-			fmt.Println("No more position to load")
+		// an error occurred on the next position load, stopping
+		if !position.IsLoaded() {
+			fmt.Println("No more position to load, the story seems missconfigured")
 
-			os.Exit(2)
+			return 1
 		}
 
 		// the player has arrived to the last position, stopping the game
-		if (position.IsFinal()) {
-			util.ClearConsole()
+		if position.IsFinal() {
+			position.RunFinalPosition()
 
-			fmt.Println(position.Description)
-			fmt.Println()
-
-			os.Exit(0)
+			return 0
 		}
 
 		// waiting for the next position to be played

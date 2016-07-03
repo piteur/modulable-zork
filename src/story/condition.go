@@ -10,7 +10,7 @@ type StoryCondition struct {
 // static storage of all the conditions
 var staticConditions map[string]StoryCondition
 
-// read & store if necessary a condition
+// read & store a condition if necessary
 func (storyCondition StoryCondition) Init() {
 	// init the map if not already done
 	if len(staticConditions) == 0 {
@@ -23,43 +23,47 @@ func (storyCondition StoryCondition) Init() {
 }
 
 // test a condition
-func (storyCondition StoryCondition) Verify() bool {
-	if !storyCondition.isInitialized() {
+func (condition StoryCondition) Verify() bool {
+	if !condition.isInitialized() {
 		return false
 	}
 
-	if !storyCondition.IsTestable() {
+	if !condition.IsTestable() {
 		return false
 	}
 
-	storedConditionValue := staticConditions[storyCondition.Key].Value
+	storedValue := staticConditions[condition.Key].Value
 
-	switch storyCondition.Test {
-		case "=", "==":
-			return storedConditionValue == storyCondition.Value
-		case ">":
-			return storedConditionValue > storyCondition.Value
-		case "<":
-			return storedConditionValue < storyCondition.Value
-		case "!=", "!==", "<>":
-			return storedConditionValue != storyCondition.Value
+	switch condition.Test {
+	case "=", "==":
+		return storedValue == condition.Value
+	case ">":
+		return storedValue > condition.Value
+	case ">=":
+		return storedValue >= condition.Value
+	case "<":
+		return storedValue < condition.Value
+	case "<=":
+		return storedValue <= condition.Value
+	case "!=", "!==", "<>":
+		return storedValue != condition.Value
 	}
 
 	return false
 }
 
-// is the condition as test or a declaration
-func (storyCondition StoryCondition) IsTestable() bool {
-	if storyCondition.Test == "" {
+// is the condition has been initialized ?
+func (storyCondition StoryCondition) isInitialized() bool {
+	if _, exist := staticConditions[storyCondition.Key]; !exist {
 		return false
 	}
 
 	return true
 }
 
-// is the condition has been initialized ?
-func (storyCondition StoryCondition) isInitialized() bool {
-	if _, exist := staticConditions[storyCondition.Key]; !exist {
+// is the condition as test or a declaration ?
+func (storyCondition StoryCondition) IsTestable() bool {
+	if storyCondition.Test == "" {
 		return false
 	}
 

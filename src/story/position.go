@@ -8,10 +8,10 @@ import (
 
 // each story position
 type StoryPosition struct {
-	Name         string
-	Description  string
-	Actions      map[string]StoryAction
-	Final        int
+	Name        string
+	Description string
+	Actions     map[string]StoryAction
+	Final       int
 }
 
 // display & interact with a story position
@@ -29,6 +29,13 @@ func (position StoryPosition) Run() string {
 			return positionId
 		}
 	}
+}
+
+// run the final position
+func (position StoryPosition) RunFinalPosition() {
+	util.ClearConsole()
+
+	fmt.Println(position.Description)
 }
 
 // is a position loaded ? Or empty
@@ -69,4 +76,3 @@ func waitForCorrectInput(position StoryPosition) (action StoryAction) {
 
 	return
 }
-

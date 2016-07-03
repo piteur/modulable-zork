@@ -1,10 +1,10 @@
 package util
 
 import (
+	"fmt"
 	"os"
 	"os/exec"
 	"runtime"
-	"fmt"
 )
 
 var clearFunc map[string]func()

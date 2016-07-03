@@ -10,21 +10,29 @@ import (
 var input = bufio.NewReader(os.Stdin)
 
 // read string from stdin
-func ReadString() (choice string, err error) {
+func ReadString() (string, error) {
 	// TODO: check on windows
-	choice, err = input.ReadString('\n')
+	choice, err := input.ReadString('\n')
 
-	return strings.TrimRight(choice, "\n"), err
+	if err != nil {
+		return "", err
+	}
+
+	cleanedChoice := strings.TrimSpace(strings.TrimRight(choice, "\n"))
+
+	return cleanedChoice, err
 }
 
 // read int from stdin
-func ReadInt() (choice int, err error) {
+func ReadInt() (int, error) {
 	// TODO: check on windows
-	stringChoice, err := input.ReadString('\n')
+	choice, err := input.ReadString('\n')
 
 	if err != nil {
 		return -0, err
 	}
 
-	return strconv.Atoi(strings.TrimRight(stringChoice, "\n"))
+	cleanedChoice := strings.TrimSpace(strings.TrimRight(choice, "\n"))
+
+	return strconv.Atoi(cleanedChoice)
 }
