@@ -12,7 +12,7 @@
                 },
                 "Go north": {
                     "text": "You approach the sea.",
-                    "moveToPosition": "1"
+                    "moveTo": "1"
                 },
                 "test": {
                     "text": "shoes on your feets",

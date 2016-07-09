@@ -51,8 +51,6 @@ func (position StoryPosition) IsFinal() bool {
 // wait for the user to input something correct, and return the action to be played next
 func waitForCorrectInput(position StoryPosition) (action StoryAction) {
 	for {
-		var exist bool
-
 		fmt.Println("\n\tWhat do you want to do ?")
 		choice, err := util.ReadString()
 
@@ -61,16 +59,38 @@ func waitForCorrectInput(position StoryPosition) (action StoryAction) {
 			continue
 		}
 
-		// lower string, easier to compare
-		choice = strings.ToLower(choice)
+		action = position.getAction(choice)
 
-		action, exist = position.Actions[choice]
-
-		if exist == false {
+		// the action isn't set: not found
+		if (action == StoryAction{}) {
 			fmt.Println("Nope, nothing to do with that. Sorry.")
 			continue
 		} else {
 			break
+		}
+	}
+
+	return
+}
+
+// get the action corresponding to an input for the current position
+func (position StoryPosition) getAction(choice string) (action StoryAction) {
+	action, exist := position.Actions[choice]
+
+	if exist {
+		// found ! no need to search anymore. We were lucky ...
+		return
+	}
+
+	// not found yet, need to iterate around all actions occurrences
+	// to lower case & compare correctly
+	choice = strings.TrimSpace(strings.ToLower(choice))
+
+	for key, action := range position.Actions {
+		key = strings.TrimSpace(strings.ToLower(key))
+
+		if key == choice {
+			return action
 		}
 	}
 
