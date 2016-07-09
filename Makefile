@@ -8,17 +8,12 @@ help: ## Display usage
 build: ## Compile Go binary for the current OS
 	@echo "Compiling... " && go build -o "$(PWD)/bin/modulable-zork" main.go
 
-build-linux: ## Compile Go binary for Linux
-	@echo "Compiling for Unix... " && GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o "$(PWD)/bin/modulable-zork" main.go
-
-build-windows: ## Compile Go binary for Windows
-	@echo "Compiling for Windows... " && GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go build -o "$(PWD)/bin/modulable-zork.exe" main.go
-
-build-mac: ## Compile Go binary for Mac
-	@echo "Compiling for Mac... " && GOOS=darwin GOARCH=amd64 CGO_ENABLED=0 go build -o "$(PWD)/bin/modulable-zork.exe" main.go
-
-build-all: build-linux build-windows build-mac ## Compile all possible binaries
-	@echo "Done !"
-
 run: build
 	@"$(PWD)/bin/modulable-zork"
+
+install: ## install dependencies with glide
+	@glide --version >/dev/null 2>&1 || { echo >&2 "Glide is required.  Aborting."; exit 1; }
+	@glide install --strip-vcs --update-vendored
+
+test: ## run go tests
+	@go test $(shell go list github.com/piteur/modulable-zork/... | grep -v /vendor)
