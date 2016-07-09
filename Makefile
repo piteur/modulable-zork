@@ -2,13 +2,13 @@
 .DEFAULT: help
 .PHONY: help build
 
-help: ## Display usage
+help: ## display usage
 	@grep -E '^[0-9a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-build: ## Compile Go binary for the current OS
+build: ## compile Go binary for the current OS
 	@echo "Compiling... " && go build -o "$(PWD)/bin/modulable-zork" main.go
 
-run: build
+run: build ## compile & run the binary
 	@"$(PWD)/bin/modulable-zork"
 
 install: ## install dependencies with glide
