@@ -17,3 +17,7 @@ install: ## install dependencies with glide
 
 test: ## run go tests
 	@go test $(shell go list github.com/piteur/modulable-zork/... | grep -v /vendor)
+
+build-all: ## install gox & build all the possible binaries
+	@go get github.com/mitchellh/gox
+	@gox -output="bin/{{.Dir}}_{{.OS}}_{{.Arch}}"
