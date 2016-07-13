@@ -8,7 +8,7 @@
             "description": "This is the default position defined by the story. It's the first position to be executed & played.",
             "actions": {
                 "setTest": {
-                    "text": "Setting `myValue` to `42`",
+                    "text": "Setting `myValue` to `42` !",
                     "condition": {
                         "key": "myValue",
                         "value": "42"
