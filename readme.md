@@ -10,20 +10,23 @@ For those who don't know what this game is, please take a look here: https://en.
 The compiled binary will look for a `./stories` folder with json files inside.
 Each json file should contain a properly formatted story.
 
-The story format can be seen right there: [doc/storyDocumentation.json](./doc/storyDocumentation.json)
+The story format can be seen right there: [stories/storyDocumentation.json](./stories/storyDocumentation.json)
 
 ## How to build the binary file
 
-All the code/binary interactions are done throught the `make` command.
+All the code/binary interactions are done through the `make` command.
 
 ```console
 $ make
-build-linux                    Compile Go binary for Linux
-build-windows                  Compile Go binary for Windows
-build                          Compile Go binary for the current OS
-help                           Display usage
+build                          compile Go binary for the current OS
+help                           display usage
+install                        install dependencies with glide
+run                            compile & run the binary
+test                           run go tests
 ```
+
 The compiled binary will be stored on the `bin/` folder.
+
 
 You can run it directly and try the demo story, or put it where you want to load your stories.
 

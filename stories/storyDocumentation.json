@@ -33,11 +33,7 @@
         "1": {
             "name": "Second position",
             "description": "You have moved here thanks to the valid condition object.",
-            "actions": {
-                "and now ?": {
-                    "text": "Nothing else to show, thanks for testing the project :)"
-                }
-            }
+            "final": 1
         }
     }
 }
