@@ -44,8 +44,6 @@ func LoadStories() {
 // Prompt user to choose an history
 // Will prompt until a valid int has been typed. Exit on invalid type.
 func ChooseHistory() story.Story {
-	var choice int
-
 	fmt.Println("Choose the story to load:\n")
 
 	for _, story := range storyMap {
@@ -54,6 +52,11 @@ func ChooseHistory() story.Story {
 		fmt.Println("")
 	}
 
+	return storyMap[getValidStoryInput()]
+}
+
+// Get a valid story input from the user
+func getValidStoryInput() (choice int) {
 	for {
 		fmt.Println("")
 		fmt.Println("What story do you want to play ?")
@@ -66,11 +69,9 @@ func ChooseHistory() story.Story {
 		}
 
 		if _, exist := storyMap[choice]; exist {
-			break
+			return choice
 		}
 	}
-
-	return storyMap[choice]
 }
 
 // load a story from a json string
