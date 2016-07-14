@@ -1,7 +1,8 @@
-# Modulable Zork
-----------------
+# Modular Zork
 
-This project aim to furnish a fully modulable Zork-like game.
+[![Build Status](https://travis-ci.org/piteur/modular-zork.svg?branch=master)](https://travis-ci.org/piteur/modular-zork)
+
+This project aim to furnish a fully modular Zork-like game.
 
 For those who don't know what this game is, please take a look here: https://en.wikipedia.org/wiki/Zork
 
@@ -18,6 +19,7 @@ All the code/binary interactions are done through the `make` command.
 
 ```console
 $ make
+build-all                      install gox & build all the possible binaries
 build                          compile Go binary for the current OS
 help                           display usage
 install                        install dependencies with glide

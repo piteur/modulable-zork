@@ -1,6 +1,6 @@
 # Rules
 .DEFAULT: help
-.PHONY: help build
+.PHONY: build
 
 help: ## display usage
 	@grep -E '^[0-9a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -20,4 +20,7 @@ test: ## run go tests
 
 build-all: ## install gox & build all the possible binaries
 	@go get github.com/mitchellh/gox
-	@gox -output="bin/{{.Dir}}_{{.OS}}_{{.Arch}}"
+	@gox -output="bin/{{.OS}}/modulable-zork_{{.Arch}}"
+
+generate-download-page: ## generate the download page to list available binaries
+	@build/ci/generate-download-page.sh

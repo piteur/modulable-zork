@@ -13,13 +13,17 @@ script:
   # build all binaries for all possible platform
   - make build-all
 
+before_deploy:
+  # generate the download page
+  - make generate-download-page > bin/index.html
+
 # push the binaries to the s3 bucket
 deploy:
   provider: s3
   access_key_id: $S3_ACCESS_KEY_ID
   secret_access_key: $S3_SECRET_ACCESS_KEY
-  bucket: "modulable-zork-releases"
-  region: "eu-west-1"
+  bucket: $S3_BUCKET
+  region: $S3_REGION
   upload-dir: "releases/$TRAVIS_TAG"
   skip_cleanup: true
   local_dir: bin
