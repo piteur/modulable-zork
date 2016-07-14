@@ -1,4 +1,4 @@
-package: github.com/piteur/modulable-zork
+package: github.com/piteur/modular-zork
 import:
 - package: github.com/stretchr/testify
   subpackages:

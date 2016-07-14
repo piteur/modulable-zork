@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/piteur/modulable-zork/src/game"
-	"github.com/piteur/modulable-zork/src/loader"
+	"github.com/piteur/modular-zork/src/game"
+	"github.com/piteur/modular-zork/src/loader"
 	"os"
 )
 
 func main() {
-	fmt.Println("Welcome to 'modulable Zork'")
+	fmt.Println("Welcome to 'modular Zork'")
 
 	loader.LoadStories()
 	story := loader.ChooseHistory()

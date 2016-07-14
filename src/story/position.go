@@ -2,7 +2,7 @@ package story
 
 import (
 	"fmt"
-	"github.com/piteur/modulable-zork/src/util"
+	"github.com/piteur/modular-zork/src/util"
 	"strings"
 )
 

@@ -1,6 +1,4 @@
-# Modular Zork
-
-[![Build Status](https://travis-ci.org/piteur/modular-zork.svg?branch=master)](https://travis-ci.org/piteur/modular-zork)
+# Modular Zork [![Build Status](https://travis-ci.org/piteur/modular-zork.svg?branch=master)](https://travis-ci.org/piteur/modular-zork)
 
 This project aim to furnish a fully modular Zork-like game.
 
