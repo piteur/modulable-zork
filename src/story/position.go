@@ -75,6 +75,7 @@ func waitForCorrectInput(position StoryPosition) (action StoryAction) {
 
 // get the action corresponding to an input for the current position
 func (position StoryPosition) getAction(choice string) (action StoryAction) {
+	// exact match
 	action, exist := position.Actions[choice]
 
 	if exist {
@@ -82,10 +83,24 @@ func (position StoryPosition) getAction(choice string) (action StoryAction) {
 		return
 	}
 
+	// removing space
+	choice = strings.TrimSpace(choice)
+
+	action, exist = position.Actions[choice]
+	if exist {
+		return
+	}
+
+	// lowering all case
+	choice = strings.ToLower(choice)
+
+	action, exist = position.Actions[choice]
+	if exist {
+		return
+	}
+
 	// not found yet, need to iterate around all actions occurrences
 	// to lower case & compare correctly
-	choice = strings.TrimSpace(strings.ToLower(choice))
-
 	for key, action := range position.Actions {
 		key = strings.TrimSpace(strings.ToLower(key))
 
