@@ -7,45 +7,25 @@ import (
 	"runtime"
 )
 
-var clearFunc map[string]func()
+func ClearConsole() {
+	command := ""
 
-func initMap() {
-	if len(clearFunc) != 0 {
+	switch runtime.GOOS {
+		case "darwin", "freebsd", "linux", "netbsd", "openbsd":
+			command = "clear"
+		case "windows":
+			command = "cls"
+	}
+
+	if command != "" {
+		cmd := exec.Command(command)
+		cmd.Stdout = os.Stdout
+		cmd.Run()
+
 		return
 	}
 
-	clearFunc = make(map[string]func())
-
-	// linux
-	clearFunc["linux"] = func() {
-		cmd := exec.Command("clear")
-		cmd.Stdout = os.Stdout
-		cmd.Run()
-	}
-
-	// mac
-	clearFunc["darwin"] = func() {
-		cmd := exec.Command("clear")
-		cmd.Stdout = os.Stdout
-		cmd.Run()
-	}
-
-	// win
-	clearFunc["windows"] = func() {
-		cmd := exec.Command("cls")
-		cmd.Stdout = os.Stdout
-		cmd.Run()
-	}
-}
-
-func ClearConsole() {
-	initMap()
-
-	clear, exist := clearFunc[runtime.GOOS]
-
-	if exist {
-		clear()
-	} else {
-		fmt.Println("\n\n\n\n")
-	}
+	// what the fuck is the current OS ?
+	// Better have a fallback in case :)
+	fmt.Println("\n\n\n\n")
 }
