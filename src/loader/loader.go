@@ -17,7 +17,7 @@ func LoadStories() {
 
 	if err != nil {
 		fmt.Println("No 'stories' folder found. Aborting")
-		return
+		os.Exit(2)
 	}
 
 	for index, file := range files {
@@ -37,8 +37,6 @@ func LoadStories() {
 			storyMap[index] = story
 		}
 	}
-
-	return
 }
 
 // Prompt user to choose an history
