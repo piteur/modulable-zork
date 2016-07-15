@@ -3,7 +3,7 @@ package game
 import(
 	"github.com/stretchr/testify/assert"
 	"testing"
-	"github.com/piteur/modulable-zork/src/story"
+	"github.com/piteur/modular-zork/src/story"
 )
 
 func TestFailingStory(t *testing.T) {

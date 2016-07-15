@@ -2,8 +2,8 @@ package game
 
 import (
 	"fmt"
-	"github.com/piteur/modulable-zork/src/story"
-	"github.com/piteur/modulable-zork/src/util"
+	"github.com/piteur/modular-zork/src/story"
+	"github.com/piteur/modular-zork/src/util"
 )
 
 // launch a story to play it
