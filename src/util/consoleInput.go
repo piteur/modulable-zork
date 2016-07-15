@@ -11,7 +11,6 @@ var input = bufio.NewReader(os.Stdin)
 
 // read string from stdin
 func ReadString() (string, error) {
-	// TODO: check on windows
 	choice, err := input.ReadString('\n')
 
 	if err != nil {
@@ -25,7 +24,6 @@ func ReadString() (string, error) {
 
 // read int from stdin
 func ReadInt() (int, error) {
-	// TODO: check on windows
 	choice, err := input.ReadString('\n')
 
 	if err != nil {
