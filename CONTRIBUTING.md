@@ -58,7 +58,7 @@ You can add the full story on a block like this one to be readable:
         }
     }
 }
-~~~
+\~~~
 ```
 
 If the bug is reproduced it'll be resolved as soon as possible.
