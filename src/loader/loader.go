@@ -24,16 +24,27 @@ func LoadStories() {
 		var fileContent []byte
 
 		if !file.IsDir() {
+			if file.Name() == ".gitignore" {
+				continue;
+			}
+
 			fileContent, err = ioutil.ReadFile("./stories/" + file.Name())
 
 			if err != nil {
-				fmt.Println("Unable to load file content")
+				fmt.Println("Unable to load file content for '" + file.Name() + "'")
 				os.Exit(2)
 			}
 
-			story := load(fileContent)
-			story.StoryId = index
+			story, err := load(fileContent)
 
+			if err != nil {
+				fmt.Println("The story '" + file.Name() + "' can't be parsed due to an error on the story")
+				fmt.Println("Error message:\n\t" + err.Error())
+
+				os.Exit(2)
+			}
+
+			story.StoryId = index
 			storyMap[index] = story
 		}
 	}
@@ -73,8 +84,8 @@ func getValidStoryInput() (choice int) {
 }
 
 // load a story from a json string
-func load(storyToLoad []byte) (story story.Story) {
-	json.Unmarshal(storyToLoad, &story)
+func load(storyToLoad []byte) (story story.Story, err error) {
+	err = json.Unmarshal(storyToLoad, &story)
 
 	return
 }
