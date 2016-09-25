@@ -20,6 +20,7 @@ func StopOnError(err error) {
 An error occured:
 		%s
 
+----
 If you believe this error shouldn't have happen
 Please feel free to create a new issue on this page: https://github.com/piteur/modular-zork/issues
 

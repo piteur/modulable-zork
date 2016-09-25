@@ -99,8 +99,7 @@ func load(path string) (story story.Story, err error) {
 Error message:
 	%s
 
-You can check your story formating (json file) on this website to catch common mistake: jsonlint.com
-If the issue persist, please open a bug case here: github.com/piteur/modular-zork/issues/new`
+You can check your story formating (json file) on this website to catch common mistake: jsonlint.com`
 
 		err = errors.New(fmt.Sprintf(errorMessage, path, err.Error()))
 
