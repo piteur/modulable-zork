@@ -35,7 +35,6 @@ func LoadStories(dir string) (storyMap map[int]story.Story, err error) {
 			}
 
 			story.StoryId = index
-
 			storyMap[index] = story
 		}
 	}
@@ -88,7 +87,7 @@ func load(path string) (story story.Story, err error) {
 	fileContent, err := ioutil.ReadFile(path)
 
 	if err != nil {
-		err = errors.New("Unable to load file content")
+		err = errors.New("Unable to load content from file '" + path + "'")
 
 		return
 	}
@@ -96,7 +95,14 @@ func load(path string) (story story.Story, err error) {
 	err = json.Unmarshal(fileContent, &story)
 
 	if err != nil {
-		err = errors.New("Unable to decode file content")
+		errorMessage := `/!\/!\ The story '%s' can't be parsed due to an error on the story content /!\/!\
+Error message:
+	%s
+
+You can check your story formating (json file) on this website to catch common mistake: jsonlint.com
+If the issue persist, please open a bug case here: github.com/piteur/modular-zork/issues/new`
+
+		err = errors.New(fmt.Sprintf(errorMessage, path, err.Error()))
 
 		return
 	}
