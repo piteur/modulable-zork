@@ -7,9 +7,6 @@
             "name": "Start position",
             "description": "This is the default position defined by the story. It's the first position to be executed & played.",
             "actions": {
-                "jump": {
-                    "text": "You can't jump, you fool"
-                },
                 "shortcut": {
                     "moveTo": "1"
                 },
