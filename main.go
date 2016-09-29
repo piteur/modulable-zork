@@ -4,23 +4,48 @@ import (
 	"fmt"
 	"github.com/piteur/modular-zork/src/game"
 	"github.com/piteur/modular-zork/src/loader"
-	"os"
 	"github.com/piteur/modular-zork/src/util"
+	"flag"
+	"github.com/piteur/modular-zork/src/story"
 )
 
 func main() {
-	fmt.Println("Welcome to 'modular Zork'")
+	var storyToLoad string
 
-	loader.LoadStories()
-	story := loader.ChooseHistory()
+	// flag configuration
+	flag.StringVar(&storyToLoad, "story", "", "path to the story json file")
+	flag.Parse()
 
-	// launch the loaded story
+	// load the story
+	story := getStoryToLoad(storyToLoad)
+
+	// and launch it
 	exitCode := game.Run(story)
 
-	// wait before killing the program
-	// useful for users who double-click the binary
-	fmt.Println("")
-	_, _ = util.ReadString()
+	util.DisplayMessage("", exitCode)
+}
 
-	os.Exit(exitCode)
+// get the story to load based on user input & configuration
+func getStoryToLoad(storyToload string) (story story.Story) {
+	// no specific story to load: we list the folder & prompt the user
+	if storyToload == "" {
+		fmt.Println("Welcome to 'modular Zork'")
+
+		stories, err := loader.LoadStories("./stories")
+
+		if err != nil {
+			util.StopOnError(err)
+		}
+
+		return loader.ChooseHistory(stories)
+	}
+
+	// we try to load the specified story
+	story, err := loader.LoadStory(storyToload)
+
+	if err != nil {
+		util.StopOnError(err)
+	}
+
+	return
 }

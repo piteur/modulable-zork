@@ -7,6 +7,9 @@
             "name": "Start position",
             "description": "This is the default position defined by the story. It's the first position to be executed & played.",
             "actions": {
+                "shortcut": {
+                    "moveTo": "1"
+                },
                 "setTest": {
                     "text": "Setting `myValue` to `42` !",
                     "condition": {
