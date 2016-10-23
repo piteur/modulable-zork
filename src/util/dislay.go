@@ -14,7 +14,7 @@ func DisplayMessage(errMessage string, exitCode ...int) {
 	}
 }
 
-// display a nice formatted message & exit the program
+// display a nicely formatted message & exit the program
 func StopOnError(err error) {
 	errorMessage := `
 An error occured:

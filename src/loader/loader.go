@@ -7,9 +7,8 @@ import (
 	"github.com/piteur/modular-zork/src/util"
 	"io/ioutil"
 	"errors"
+	"bytes"
 )
-
-var storyMap = map[int]story.Story{}
 
 // Scan the 'stories' folder and load stories name & index to story.storyMap
 func LoadStories(dir string) (storyMap map[int]story.Story, err error) {
@@ -28,14 +27,14 @@ func LoadStories(dir string) (storyMap map[int]story.Story, err error) {
 				continue;
 			}
 
-			story, err := load(dir + "/" + file.Name())
+			loadedStory, err := load(dir + "/" + file.Name())
 
 			if err != nil {
 				return storyMap, err
 			}
 
-			story.StoryId = index
-			storyMap[index] = story
+			loadedStory.StoryId = index
+			storyMap[index] = loadedStory
 		}
 	}
 
@@ -52,11 +51,12 @@ func LoadStory(file string) (story story.Story, err error) {
 // Prompt user to choose an history
 // Will prompt until a valid int has been typed. Exit on invalid type.
 func ChooseHistory(storyMap map[int]story.Story) story.Story {
-	fmt.Println("Choose the story to load:\n")
+	fmt.Println("Choose the story to load:")
+	fmt.Println()
 
-	for _, story := range storyMap {
-		fmt.Printf("%v - %s\n", story.StoryId, story.Name)
-		fmt.Printf("\tDescription:\n\t%s\n", story.Description)
+	for _, loadedStory := range storyMap {
+		fmt.Printf("%v - %s\n", loadedStory.StoryId, loadedStory.Name)
+		fmt.Printf("\tDescription:\n\t%s\n", loadedStory.Description)
 		fmt.Println("")
 	}
 
@@ -73,6 +73,7 @@ func getValidStoryInput(storyMap map[int]story.Story) int {
 
 		if err != nil {
 			fmt.Println("invalid input ! Please enter a valid number")
+
 			continue
 		}
 
@@ -87,21 +88,43 @@ func load(path string) (story story.Story, err error) {
 	fileContent, err := ioutil.ReadFile(path)
 
 	if err != nil {
-		err = errors.New("Unable to load content from file '" + path + "'")
+		err = fmt.Errorf("Unable to load content from file '%s'", path)
 
 		return
 	}
 
 	err = json.Unmarshal(fileContent, &story)
 
+	// we have a specific error on the json: display the offset of it !
+	if syntaxError, ok := err.(*json.SyntaxError); ok {
+		jsonErrorContent := make([]byte, 240)
+
+		// place the reader pointer to the error offset
+		reader := bytes.NewReader(fileContent)
+		reader.Seek(syntaxError.Offset, 0)
+		_, _ = reader.Read(jsonErrorContent)
+
+		err = fmt.Errorf(`%s
+
+The error is in the following lines:
+----
+	%s [...]
+----
+
+Check for any suspicous character, or syntax mistake.`,
+			err.Error(),
+			string(jsonErrorContent),
+		)
+	}
+
 	if err != nil {
 		errorMessage := `/!\/!\ The story '%s' can't be parsed due to an error on the story content /!\/!\
 Error message:
 	%s
 
-You can check your story formating (json file) on this website to catch common mistake: jsonlint.com`
+You can check your story formating on this website to catch common mistake: http://jsonlint.com`
 
-		err = errors.New(fmt.Sprintf(errorMessage, path, err.Error()))
+		err = fmt.Errorf(errorMessage, path, err.Error())
 
 		return
 	}
