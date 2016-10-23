@@ -29,13 +29,13 @@ func main() {
 func getStoryToLoad(storyToload string) (story story.Story) {
 	// no specific story to load: we list the folder & prompt the user
 	if storyToload == "" {
-		fmt.Println("Welcome to 'modular Zork'")
-
 		stories, err := loader.LoadStories("./stories")
 
 		if err != nil {
 			util.StopOnError(err)
 		}
+
+		fmt.Println("Welcome to 'modular Zork'")
 
 		return loader.ChooseHistory(stories)
 	}
